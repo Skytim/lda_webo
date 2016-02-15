@@ -9,6 +9,8 @@ import os
 import csv
 import gensim
 import blah
+import sys
+import csv
 from gensim import corpora, models, similarities 
 # jieba 設定斷詞
 jieba.set_dictionary('jieba/dict.txt.big')
@@ -79,12 +81,15 @@ if(words!=[[]]):
         documentsort.append(sorted(doc, key=lambda x: x[1])[-1][0])
 
 
-
+f = open('data/finalcsv.csv', 'w')
 for x in range(len(documentsort)):
-    print str(x)+" ,"+str(documentsort[x])+" ,"+finalcontent[x]
+    line= str(x)+" ,"+str(documentsort[x])+" ,"+finalcontent[x]+"\n"
+    print u''.join(line).encode('utf-8')
+    f.write(u''.join(line).encode('utf-8'))
 
-print len(documentsort)
-print len(finalcontent)
+f.close()
+# print len(documentsort)
+# print len(finalcontent)
 query = u"女孩"
 
 query_bow = dic.doc2bow(list(jieba.cut(query)))
